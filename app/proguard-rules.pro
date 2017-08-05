@@ -25,3 +25,9 @@
 #-renamesourcefileattribute SourceFile
 -dontwarn java.lang.invoke.*
 -dontwarn **$$Lambda$*
+-keepnames public class * extends io.realm.RealmObject
+-keep class io.realm.** { *; }
+-dontwarn javax.**
+-dontwarn io.realm.**
+-dontwarn java.lang.invoke.*
+-dontwarn **$$Lambda$*

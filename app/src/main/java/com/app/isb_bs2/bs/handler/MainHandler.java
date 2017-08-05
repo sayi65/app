@@ -19,6 +19,7 @@ import com.app.isb_bs2.bs.R;
 import com.app.isb_bs2.bs.fragment.DashBoardFragment;
 import com.app.isb_bs2.bs.fragment.HomeFragment;
 import com.app.isb_bs2.bs.fragment.OverTimeFragment;
+import com.app.isb_bs2.bs.fragment.OverTimeListFragment;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -46,7 +47,7 @@ public class MainHandler {
                 fragment = new DashBoardFragment();
                 break;
             case R.id.navigation_notifications:
-                fragment = new OverTimeFragment();
+                fragment = new OverTimeListFragment();
                 break;
         }
 

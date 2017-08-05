@@ -2,7 +2,8 @@
     <string name="app_name">bs</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Notifications</string>search_hint
+    <string name="search_hint">search_hint</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="home_fragment">Hello Home fragment</string>

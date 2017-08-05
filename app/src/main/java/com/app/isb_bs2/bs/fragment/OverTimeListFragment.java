@@ -1,5 +1,6 @@
 package com.app.isb_bs2.bs.fragment;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,10 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.app.isb_bs2.bs.BR;
 import com.app.isb_bs2.bs.R;
-import com.app.isb_bs2.bs.databinding.FragmentOvertimeListBinding;
-import com.app.isb_bs2.bs.model.OverTime;
+import com.app.isb_bs2.bs.realmdata.OverTime;
+import com.app.isb_bs2.bs.viewmodel.OverTimeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +31,11 @@ public class OverTimeListFragment extends BaseFragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private FragmentOvertimeListBinding binding;
     private RecyclerView mRecyclerView;
     private Realm realm;
+
+//    private OverTimeViewModel overTimeViewModel;
+    OverTime overTime;
 
 
     private List<OverTime> mWeapons;
@@ -70,46 +72,49 @@ public class OverTimeListFragment extends BaseFragment {
 
         View rootView = inflater.inflate(R.layout.fragment_overtime_list, container, false);
 
-        binding = FragmentOvertimeListBinding.bind(rootView);
-        binding.setVariable(BR.OverTime, BR.OverTime);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
-        //mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
-
-
-        mWeapons = new ArrayList<>();
-
-        mWeapons.add(new OverTime("113231", "aaaa", true));
-        mWeapons.add(new OverTime("22222", "bbbb", true));
-        mWeapons.add(new OverTime("33333", "cccc", true));
-        mWeapons.add(new OverTime("44444", "dddd", true));
-
-        OverTime overTime = new OverTime();
-        overTime.setEmployeeCode("aaaaaa");
-        overTime.setEmployeeName("bbbb");
-        overTime.setOverTime(true);
-
-        binding.setVariable(BR.OverTime, overTime);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
 
 
+
+        realm = realm.getDefaultInstance();
+        RealmResults<OverTime> overTime =realm.where(OverTime.class).findAll();
+//        ArrayList<OverTimeViewModel> overTime = new ArrayList(realm.where(OverTime.class).findAll());
+        OverTimeListRecyclerViewAdapter adapter = new OverTimeListRecyclerViewAdapter(getContext(), overTime);
+        mRecyclerView.setAdapter(adapter);
+
+
+
+//
+//        OverTimeListRecyclerViewAdapter ovetTimeAdapter = new OverTimeListRecyclerViewAdapter(getContext(), overTime);
+//        overTimeView.setAdapter(ovetTimeAdapter);
+//        overTimeViewModel = new OverTimeViewModel(realm.where(OverTime.class).findFirst());
+
+//        RealmSearchView realmSearchView = (RealmSearchView)rootView.findViewById(R.id.search_view);
+//        realm = Realm.getDefaultInstance();
+//        OverTimeListRecyclerViewAdapter adapter = new OverTimeListRecyclerViewAdapter(getContext(), realm, "title");
 
 
         // Set the adapter
        // if (rootView instanceof RecyclerView) {
             //if (mColumnCount <= 1) {
-        mRecyclerView = binding.recyclerView;
-        mRecyclerView.setHasFixedSize(true);
-
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
-                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                mRecyclerView.setLayoutManager(linearLayoutManager);
+//        mRecyclerView = binding.recyclerView;
+//        mRecyclerView.setHasFixedSize(true);
+//
+//
+//
             //}
             //else {
                // mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), mColumnCount));
             //}
-            mRecyclerView.setAdapter(new OverTimeListRecyclerViewAdapter(mWeapons, mListener));
+//            mRecyclerView.setAdapter(new OverTimeListRecyclerViewAdapter(mWeapons, mListener));
         //}
 
-        return binding.getRoot();
+        return rootView;
     }
 
 
