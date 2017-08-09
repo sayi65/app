@@ -15,13 +15,9 @@ public class OverTime extends RealmObject{
 
     private String employeeCode;
     private String employeeName;
-//    private boolean isOverTime;
+    private boolean isOverTime;
+    private String reason;
 
-//    public OverTime(String employeeCode, String employeeName, boolean isOverTime) {
-//        this.employeeCode = employeeCode;
-//        this.employeeName = employeeName;
-//        this.isOverTime = isOverTime;
-//    }
 
     public String getEmployeeCode() {
         return employeeCode;
@@ -32,9 +28,13 @@ public class OverTime extends RealmObject{
 
     }
 
-//    public boolean isOverTime() {
-//        return isOverTime;
-//    }
+    public boolean isOverTime() {
+        return isOverTime;
+    }
+
+    public String getReason(){
+        return reason;
+    }
 
 
     public void setEmployeeCode(String employeeCode) {
@@ -45,9 +45,13 @@ public class OverTime extends RealmObject{
         this.employeeName = employeeName;
     }
 
-//    public void setOverTime(boolean overTime) {
-//        isOverTime = overTime;
-//    }
+    public void setOverTime(boolean isOverTime){
+        this.isOverTime = isOverTime;
+    }
+
+    public void setReason(String reason){
+        this.reason = reason;
+    }
 }
 
 

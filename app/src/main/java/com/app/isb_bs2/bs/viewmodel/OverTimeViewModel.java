@@ -6,6 +6,8 @@ import android.databinding.Bindable;
 import com.app.isb_bs2.bs.BR;
 import com.app.isb_bs2.bs.realmdata.OverTime;
 
+import butterknife.BindView;
+
 /**
  * Created by sayi65 on 2017/08/05.
  */
@@ -34,6 +36,22 @@ public class OverTimeViewModel extends BaseObservable {
         return "";
     }
 
+    @Bindable
+    public boolean isOverTime(){
+        if (rOverTime.isValid()){
+            return rOverTime.isOverTime();
+        }
+        return false;
+    }
+
+    @Bindable
+    public String getReason(){
+        if(rOverTime.isValid()){
+            return rOverTime.getReason();
+        }
+        return "";
+    }
+
     public void setEmployeeCode(String employeeCode){
         rOverTime.setEmployeeCode(employeeCode);
         notifyPropertyChanged(BR.employeeCode);
@@ -43,4 +61,15 @@ public class OverTimeViewModel extends BaseObservable {
         rOverTime.setEmployeeName(employeeName);
         notifyPropertyChanged(BR.employeeName);
     }
+
+    public void setOverTime(boolean isOverTime){
+        rOverTime.setOverTime(isOverTime);
+        notifyPropertyChanged(BR.overTime);
+    }
+
+    public void setReason(String reason){
+        rOverTime.setReason(reason);
+        notifyPropertyChanged(BR.reason);
+    }
+
 }

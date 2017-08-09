@@ -4,6 +4,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.app.isb_bs2.bs.databinding.ActivityMainBinding;
 import com.app.isb_bs2.bs.fragment.HomeFragment;
@@ -31,15 +33,23 @@ public class MainActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        Toolbar toolbar = binding.toolbar;
+        toolbar.setTitle("test");
+        View imageButton = toolbar.findViewById(R.id.add_button);
+        imageButton.setVisibility(View.GONE);
         //////////////
-        realm.beginTransaction();
-        overTime = realm.createObject(OverTime.class);
-        overTime.setEmployeeCode("003418");
-        overTime.setEmployeeName("sai");
-        realm.commitTransaction();
+//        realm.beginTransaction();
+//        overTime = realm.createObject(OverTime.class);
+//        overTime.setEmployeeCode("003418");
+//        overTime.setEmployeeName("sai");
+//        overTime.setOverTime(true);
+//        overTime.setReason("riyu");
+//        realm.commitTransaction();
 
         ///////////////
+
         binding.setHandler(new MainHandler(this));
+
 
         HomeFragment fragment = new HomeFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -49,13 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        if (realm != null && !realm.isClosed()) {
+            realm.close();
+        }
         super.onDestroy();
-        realm.close();
-//        if (overTime != null) {
-//            if (overTime.isValid()) {
-//                overTime.removeChangeListeners();
-//            }
-//        }
-
     }
 }

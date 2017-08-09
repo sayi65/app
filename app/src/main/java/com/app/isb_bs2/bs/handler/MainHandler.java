@@ -18,8 +18,10 @@ import com.app.isb_bs2.bs.MainActivity;
 import com.app.isb_bs2.bs.R;
 import com.app.isb_bs2.bs.fragment.DashBoardFragment;
 import com.app.isb_bs2.bs.fragment.HomeFragment;
+import com.app.isb_bs2.bs.fragment.OverTimeAddFragment;
 import com.app.isb_bs2.bs.fragment.OverTimeFragment;
 import com.app.isb_bs2.bs.fragment.OverTimeListFragment;
+import com.app.isb_bs2.bs.realmdata.OverTime;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -59,6 +61,16 @@ public class MainHandler {
 
         return true;
     }
+
+
+    public void getButton(){
+        OverTimeAddFragment overTimeAddFragment = new OverTimeAddFragment();
+        FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content, overTimeAddFragment);
+        ft.commit();
+    }
+
+
 
 }
 
