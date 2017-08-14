@@ -1,50 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <data>
     <variable name="handler" type="com.app.isb_bs2.bs.handler.MainHandler" />
 </data>
-<LinearLayout
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_gravity="right"
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        xmlns:android="http://schemas.android.com/apk/res/android" >
-        <!--android:background="@color/color_blue"-->
-        <!--app:popupTheme="@astyle/AppTheme.PopupOverlay"-->
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/add_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
             android:layout_gravity="right"
-            android:onClick="@{()->handler.getButton()}"
-            android:src="@android:drawable/ic_menu_add" />
-    </android.support.v7.widget.Toolbar>
 
-    <FrameLayout
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+            android:background="@color/colorPrimary"
+            android:title="test"
+            android:touchscreenBlocksFocus="false"
+            app:titleTextColor="@android:color/background_light">
+            <!--android:background="@color/color_blue"-->
+            <!--app:popupTheme="@astyle/AppTheme.PopupOverlay"-->
+
+            <ImageButton
+                android:id="@+id/add_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:onClick="@{()->handler.getButton()}"
+                android:src="@android:drawable/ic_menu_add" />
+        </android.support.v7.widget.Toolbar>
+
+        <FrameLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
 
-    </FrameLayout>
+        </FrameLayout>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:onNavigationItemSelectedListener="@{handler::onNavigationItemSelected}"
-        app:menu="@menu/navigation" />
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@android:color/holo_blue_bright"
+            app:menu="@menu/navigation"
+            app:onNavigationItemSelectedListener="@{handler::onNavigationItemSelected}" />
 
-</LinearLayout>
+    </LinearLayout>
 </layout>

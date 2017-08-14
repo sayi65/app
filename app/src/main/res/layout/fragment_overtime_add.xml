@@ -1,76 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable name="viewModel" type="com.app.isb_bs2.bs.viewmodel.OverTimeViewModel" />
         <variable name="overTimeHandler" type="com.app.isb_bs2.bs.handler.OverTimeViewHandler" />
     </data>
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView">
-    <LinearLayout
-        android:orientation="vertical"
+        android:orientation="vertical">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="残業申請"/>
-
-
-        <ToggleButton
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textOff=""
-            android:textOn=""/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/scrollView">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="30dp">
 
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="理由"/>
-
-            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.employeeCode}"/>
+                android:paddingBottom="10dp"
+                android:text="残業申請" />
 
-            <EditText
+
+            <ToggleButton
+                android:id="@+id/btnToggle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.employeeName}"/>
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="50dp"
+                android:checked="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:onClick="@{overTimeHandler.displayReasonText}"
+                android:textOff="なし"
+                android:textOn="あり"
+                app:showText="false" />
 
-            <!--<EditText-->
+            <LinearLayout
+                android:id="@+id/txt_reason"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="理由" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_employeeCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="社員コード"
+                    android:text="@={viewModel.employeeCode}" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_employeeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="社員名"
+                    android:text="@={viewModel.employeeName}" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!--<EditText-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:text="@={viewModel.overTime == true}"/>-->
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@={viewModel.reason}"
-                android:id="@+id/input_reason"/>
+                <EditText
+                    android:id="@+id/input_reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@={viewModel.reason}" />
 
-        </LinearLayout>
+
+
+            </LinearLayout>
+       </LinearLayout>
+
+    </ScrollView>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="保存"
-            android:onClick="@{(view)->overTimeHandler.onSaveData(viewModel)}"/>
-
+            android:layout_gravity="bottom"
+            android:onClick="@{(view)->overTimeHandler.onSaveData(viewModel)}"
+            android:text="保存" />
     </LinearLayout>
-    </ScrollView>
+
 
 </layout>

@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = binding.toolbar;
         toolbar.setTitle("test");
+
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         View imageButton = toolbar.findViewById(R.id.add_button);
         imageButton.setVisibility(View.GONE);
         //////////////
