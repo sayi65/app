@@ -10,7 +10,10 @@ import com.app.isb_bs2.bs.R;
 import com.app.isb_bs2.bs.databinding.FragmentOvertimeAddBinding;
 import com.app.isb_bs2.bs.handler.OverTimeViewHandler;
 import com.app.isb_bs2.bs.realmdata.OverTime;
+import com.app.isb_bs2.bs.rxevent.RxBus;
 import com.app.isb_bs2.bs.viewmodel.OverTimeViewModel;
+
+import io.reactivex.internal.subscriptions.ArrayCompositeSubscription;
 
 /**
  * Created by sayi65 on 2017/08/09.
@@ -19,10 +22,11 @@ import com.app.isb_bs2.bs.viewmodel.OverTimeViewModel;
 public class OverTimeAddFragment extends BaseFragment {
 
     private FragmentOvertimeAddBinding binding;
+    private OverTimeViewHandler overTimeViewHandler;
 
-public OverTimeAddFragment(){
+    public OverTimeAddFragment(){
 
-}
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,13 +36,16 @@ public OverTimeAddFragment(){
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_overtime_add, container, false);
         binding.setViewModel(new OverTimeViewModel(new OverTime()));
-        binding.setOverTimeHandler(new OverTimeViewHandler());
+        binding.setOverTimeHandler(new OverTimeViewHandler(getFragmentManager()));
 
         return binding.getRoot();
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onDestroy() {
+        super.onDestroy();
+        if (binding.getOverTimeHandler().mDisposable != null) {
+            binding.getOverTimeHandler().mDisposable.dispose();
+        }
     }
 }

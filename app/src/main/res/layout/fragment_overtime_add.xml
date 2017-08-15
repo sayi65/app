@@ -31,7 +31,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="残業申請" />
+                android:text="残業申請"
+                android:textSize="15dp" />
 
 
             <ToggleButton
@@ -53,13 +54,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="理由" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/input_employeeCode"
@@ -86,17 +82,129 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-                <!--<EditText-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@={viewModel.overTime == true}"/>-->
-
-                <EditText
-                    android:id="@+id/input_reason"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_employeeDepartment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@={viewModel.reason}" />
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="所属部署"
+                        android:text="@={viewModel.employeeName}" />
 
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_projectName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="業務名"
+                        android:text="@={viewModel.employeeName}" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/txt_projectCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="PJコード"
+                        android:text="@={viewModel.employeeName}" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/txt_pjReason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/input_pjReason"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="法定休日出勤作業不可避事由"
+                        android:text="@={viewModel.reason}" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/txt_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/input_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="残業理由詳細"
+                        android:text="@={viewModel.reason}" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="作業場所"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/input_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_view_border"
+                    android:gravity="center"
+                    android:onClick="@{overTimeHandler.placePopup}"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="テスト"
+                    android:textSize="20dp" />
+
+
+                    <TextView
+                        android:id="@+id/txt_come"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="出社"
+                        android:layout_marginTop="10dp"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/input_come"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:background="@drawable/text_view_border"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:onClick="@{overTimeHandler.comeTimePopup}"
+                        android:gravity="center"
+                        android:text="10:00" />
+
+
+                    <TextView
+                        android:id="@+id/txt_leave"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="退社"
+                        android:layout_marginTop="10dp"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/input_leave"
+                        android:textSize="20dp"
+                        android:background="@drawable/text_view_border"
+                        android:onClick="@{overTimeHandler.leaveTimePopup}"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:gravity="center"
+                        android:text="20:00"/>
 
 
             </LinearLayout>
