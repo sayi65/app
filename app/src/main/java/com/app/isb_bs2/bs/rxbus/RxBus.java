@@ -1,10 +1,8 @@
-package com.app.isb_bs2.bs.rxevent;
+package com.app.isb_bs2.bs.rxbus;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
+import com.app.isb_bs2.bs.rxevent.OverTimeEvent;
 
 import io.reactivex.Observable;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
@@ -29,12 +27,26 @@ public class RxBus {
         if(hasObservers()){
             bus.onNext(event);
         }
-
     }
+
+    public void send(int code, String msg){
+        if (hasObservers()){
+            bus.onNext(new OverTimeEvent(code, msg));
+        }
+    }
+
+
 
     public Observable<Object> toObservable() {
         return bus;
     }
+
+    public <T> Observable<T> toObservable(Class<T> eventType)
+    {
+        return bus.ofType(eventType);
+    }
+
+
 
     public boolean hasObservers() {
         return bus.hasObservers();

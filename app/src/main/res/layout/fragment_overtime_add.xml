@@ -5,7 +5,7 @@
 
     <data>
         <variable name="viewModel" type="com.app.isb_bs2.bs.viewmodel.OverTimeViewModel" />
-        <variable name="overTimeHandler" type="com.app.isb_bs2.bs.handler.OverTimeViewHandler" />
+        <variable name="overTimeHandler" type="com.app.isb_bs2.bs.handler.OverTimeAddViewHandler" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
 
                 <android.support.design.widget.TextInputLayout
@@ -90,7 +90,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="所属部署"
-                        android:text="@={viewModel.employeeName}" />
+                        android:text="@={viewModel.employeeAffiliation}" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -102,7 +102,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="業務名"
-                        android:text="@={viewModel.employeeName}" />
+                        android:text="@={viewModel.projectName}" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -114,7 +114,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="PJコード"
-                        android:text="@={viewModel.employeeName}" />
+                        android:text="@={viewModel.projectCode}" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -141,7 +141,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="残業理由詳細"
-                        android:text="@={viewModel.reason}" />
+                        android:text="@={viewModel.reasonDetail}" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -161,7 +161,7 @@
                     android:onClick="@{overTimeHandler.placePopup}"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="テスト"
+                    android:text="@={viewModel.overTimePlace}"
                     android:textSize="20dp" />
 
 
@@ -183,7 +183,7 @@
                         android:paddingTop="5dp"
                         android:onClick="@{overTimeHandler.comeTimePopup}"
                         android:gravity="center"
-                        android:text="10:00" />
+                        android:text="@={viewModel.startTime}" />
 
 
                     <TextView
@@ -204,7 +204,7 @@
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
                         android:gravity="center"
-                        android:text="20:00"/>
+                        android:text="@={viewModel.endTime}"/>
 
 
             </LinearLayout>
@@ -216,7 +216,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:onClick="@{(view)->overTimeHandler.onSaveData(viewModel)}"
+            android:onClick="@{(view)->overTimeHandler.onSaveData(view, viewModel)}"
             android:text="保存" />
     </LinearLayout>
 

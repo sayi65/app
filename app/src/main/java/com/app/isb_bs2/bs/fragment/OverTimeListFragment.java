@@ -25,36 +25,11 @@ import io.realm.RealmResults;
  */
 public class OverTimeListFragment extends BaseFragment {
 
-//    // TODO: Customize parameter argument names
-//    private static final String ARG_COLUMN_COUNT = "column-count";
-//    // TODO: Customize parameters
-//    private int mColumnCount = 1;
-
     private RecyclerView mRecyclerView;
     private Realm realm;
 
-//    private OverTimeViewModel overTimeViewModel;
-    OverTime overTime;
-
-
-    private List<OverTime> mWeapons;
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public OverTimeListFragment() {
     }
-
-//    // TODO: Customize parameter initialization
-//    @SuppressWarnings("unused")
-//    public static OverTimeListFragment newInstance(int columnCount) {
-//        OverTimeListFragment fragment = new OverTimeListFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(ARG_COLUMN_COUNT, columnCount);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -66,9 +41,6 @@ public class OverTimeListFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-//        if (getArguments() != null) {
-//            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-//        }
     }
 
     @Override

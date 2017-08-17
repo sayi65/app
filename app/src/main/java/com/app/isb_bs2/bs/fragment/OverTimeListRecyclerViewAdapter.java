@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.app.isb_bs2.bs.BR;
 import com.app.isb_bs2.bs.R;
 import com.app.isb_bs2.bs.databinding.FragmentOvertimeListItemBinding;
+import com.app.isb_bs2.bs.handler.OverTimeRecyclerViewHandler;
 import com.app.isb_bs2.bs.realmdata.OverTime;
 import com.app.isb_bs2.bs.viewmodel.OverTimeViewModel;
 
@@ -25,10 +26,13 @@ import io.realm.RealmResults;
  * Created by sayi65 on 2017/08/06.
  */
 
-public class OverTimeListRecyclerViewAdapter extends RecyclerView.Adapter<OverTimeListRecyclerViewAdapter.ViewHolder> {
+public class OverTimeListRecyclerViewAdapter extends RecyclerView.Adapter<OverTimeListRecyclerViewAdapter.ViewHolder>  {
+
 
     private RealmResults<OverTime> realmResults;
     private Context context;
+    private FragmentOvertimeListItemBinding binding;
+    private OverTimeRecyclerViewHandler overTimeRecyclerViewHandler;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -49,7 +53,6 @@ public class OverTimeListRecyclerViewAdapter extends RecyclerView.Adapter<OverTi
         this.realmResults = realmResults;
     }
 
-
     @Override
     public OverTimeListRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_overtime_list_item, parent, false);
@@ -61,9 +64,11 @@ public class OverTimeListRecyclerViewAdapter extends RecyclerView.Adapter<OverTi
         OverTime overTime = realmResults.get(position);
 
         OverTimeViewModel overTimeViewModel = new OverTimeViewModel(overTime);
+        binding = holder.getBinding();
+        binding.btnDelete.setTag(position);
 
-        FragmentOvertimeListItemBinding itemBinding = holder.getBinding();
-        itemBinding.setViewModel(overTimeViewModel);
+        binding.setViewModel(overTimeViewModel);
+        binding.setHandler(new OverTimeRecyclerViewHandler());
         holder.getBinding().executePendingBindings();
     }
 

@@ -8,12 +8,9 @@ import android.view.ViewGroup;
 
 import com.app.isb_bs2.bs.R;
 import com.app.isb_bs2.bs.databinding.FragmentOvertimeAddBinding;
-import com.app.isb_bs2.bs.handler.OverTimeViewHandler;
+import com.app.isb_bs2.bs.handler.OverTimeAddViewHandler;
 import com.app.isb_bs2.bs.realmdata.OverTime;
-import com.app.isb_bs2.bs.rxevent.RxBus;
 import com.app.isb_bs2.bs.viewmodel.OverTimeViewModel;
-
-import io.reactivex.internal.subscriptions.ArrayCompositeSubscription;
 
 /**
  * Created by sayi65 on 2017/08/09.
@@ -22,7 +19,6 @@ import io.reactivex.internal.subscriptions.ArrayCompositeSubscription;
 public class OverTimeAddFragment extends BaseFragment {
 
     private FragmentOvertimeAddBinding binding;
-    private OverTimeViewHandler overTimeViewHandler;
 
     public OverTimeAddFragment(){
 
@@ -36,7 +32,7 @@ public class OverTimeAddFragment extends BaseFragment {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_overtime_add, container, false);
         binding.setViewModel(new OverTimeViewModel(new OverTime()));
-        binding.setOverTimeHandler(new OverTimeViewHandler(getFragmentManager()));
+        binding.setOverTimeHandler(new OverTimeAddViewHandler(getFragmentManager()));
 
         return binding.getRoot();
     }
@@ -44,6 +40,9 @@ public class OverTimeAddFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if(binding.getOverTimeHandler().realm != null && binding.getOverTimeHandler().realm.isClosed()){
+            binding.getOverTimeHandler().realm.close();
+        }
         if (binding.getOverTimeHandler().mDisposable != null) {
             binding.getOverTimeHandler().mDisposable.dispose();
         }
