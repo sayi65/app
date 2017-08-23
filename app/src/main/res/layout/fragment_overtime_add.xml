@@ -66,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="社員コード"
+                    android:inputType="number"
                     android:text="@={viewModel.employeeCode}" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -77,6 +78,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:hint="社員名"
                     android:text="@={viewModel.employeeName}" />
 
@@ -90,6 +92,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="所属部署"
+                        android:inputType="text"
                         android:text="@={viewModel.employeeAffiliation}" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -102,6 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="業務名"
+                        android:inputType="text"
                         android:text="@={viewModel.projectName}" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -114,6 +118,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="PJコード"
+                        android:inputType="number"
                         android:text="@={viewModel.projectCode}" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -128,6 +133,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="法定休日出勤作業不可避事由"
+                        android:inputType="text"
                         android:text="@={viewModel.reason}" />
 
                 </android.support.design.widget.TextInputLayout>

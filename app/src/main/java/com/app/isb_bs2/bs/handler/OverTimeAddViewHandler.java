@@ -1,6 +1,7 @@
 package com.app.isb_bs2.bs.handler;
 
 import android.app.Dialog;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
@@ -8,12 +9,15 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.app.isb_bs2.bs.R;
+import com.app.isb_bs2.bs.fragment.OverTimeListFragment;
 import com.app.isb_bs2.bs.fragment.dialog.DialogTimeFragment;
 import com.app.isb_bs2.bs.fragment.dialog.DialogWorkPlaceFragment;
 import com.app.isb_bs2.bs.realmdata.OverTime;
 import com.app.isb_bs2.bs.rxbus.RxBus;
 import com.app.isb_bs2.bs.rxevent.OverTimeEvent;
 import com.app.isb_bs2.bs.viewmodel.OverTimeViewModel;
+
+import java.util.Date;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -61,8 +65,12 @@ public class OverTimeAddViewHandler {
             overTime.setStartTime(overTimeViewModel.getStartTime());
             overTime.setEndTime(overTimeViewModel.getEndTime());
             overTime.setOverTime(true);
+            overTime.setCreated(new Date());
         }
         realm.commitTransaction();
+
+        Fragment mFragment = new OverTimeListFragment();
+        manager.beginTransaction().replace(R.id.content, mFragment).commit();
 
     }
 

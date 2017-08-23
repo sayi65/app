@@ -9,6 +9,7 @@ import com.app.isb_bs2.bs.realmdata.OverTime;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 /**
  * Created by 003418 on 2017/08/17.
@@ -16,21 +17,20 @@ import io.realm.RealmResults;
 
 public class OverTimeRecyclerViewHandler {
 
-    private RealmResults<OverTime> realmResults;
     public Realm realm;
-    private FragmentOvertimeListItemBinding binding;
     private View mRootView;
+    private OverTimeListRecyclerViewAdapter mAdapter;
 
     public void onDeleteData(View v){
         mRootView = v.getRootView();
-        realmResults = (RealmResults<OverTime>)mRootView.getTag();
+        realm = realm.getDefaultInstance();
+        RealmResults<OverTime> resultOverTime =realm.where(OverTime.class).findAllSorted("created", Sort.DESCENDING);;
         int position = (int)v.getTag();
-        Log.d("position", String.valueOf(position));
-//        realm = Realm.getDefaultInstance();
-//        realm.beginTransaction();
-//        OverTime overTime = realmResults.get(position);
-//        overTime.deleteFromRealm();
-//        realm.commitTransaction();
 
+        realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        resultOverTime.deleteFromRealm(position);
+        realm.commitTransaction();
+        mAdapter.notifyDataSetChanged();
     }
 }

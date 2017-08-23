@@ -2,6 +2,8 @@ package com.app.isb_bs2.bs.realmdata;
 
 import android.databinding.Bindable;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 import io.realm.annotations.RealmClass;
 
@@ -35,6 +37,8 @@ public class OverTime extends RealmObject{
     private String startTime;
     // 退社
     private String endTime;
+    //作成日
+    private Date created;
 
 
     public boolean isOverTime() {
@@ -123,6 +127,14 @@ public class OverTime extends RealmObject{
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
 }

@@ -16,10 +16,13 @@ import com.app.isb_bs2.bs.handler.OverTimeRecyclerViewHandler;
 import com.app.isb_bs2.bs.realmdata.OverTime;
 import com.app.isb_bs2.bs.viewmodel.OverTimeViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
 /**
@@ -33,6 +36,8 @@ public class OverTimeListRecyclerViewAdapter extends RecyclerView.Adapter<OverTi
     private Context context;
     private FragmentOvertimeListItemBinding binding;
     private OverTimeRecyclerViewHandler overTimeRecyclerViewHandler;
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_LIST = 1;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -55,6 +60,13 @@ public class OverTimeListRecyclerViewAdapter extends RecyclerView.Adapter<OverTi
 
     @Override
     public OverTimeListRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Calendar today = Calendar.getInstance();
+        OverTime overTime = realmResults.get(viewType);
+        if(overTime.getCreated() == today.getTime()){
+
+        }
+
+
         final View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_overtime_list_item, parent, false);
         return new ViewHolder(v);
     }
@@ -65,11 +77,32 @@ public class OverTimeListRecyclerViewAdapter extends RecyclerView.Adapter<OverTi
 
         OverTimeViewModel overTimeViewModel = new OverTimeViewModel(overTime);
         binding = holder.getBinding();
+        if (position == TYPE_HEADER){
+//            binding.txtHeader.setVisibility(View.VISIBLE);
+//            binding.txtDate.setText("昨日");
+        }
         binding.btnDelete.setTag(position);
 
         binding.setViewModel(overTimeViewModel);
         binding.setHandler(new OverTimeRecyclerViewHandler());
         holder.getBinding().executePendingBindings();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        // サンプルコードなので手軽に position が偶数の項目と奇数の項目で view type を分ける。
+        if (position == 0){
+            return 0;
+        } else {
+            OverTime firstOverTime = realmResults.get(position-1);
+            OverTime secondOverTime = realmResults.get(position);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            if(dateFormat.format(firstOverTime.getCreated()).equals(dateFormat.format(secondOverTime.getCreated()))){
+                return 1;
+            }else {
+                return 0;
+            }
+        }
     }
 
     @Override
