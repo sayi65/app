@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.app.isb_bs2.bs.BR;
 import com.app.isb_bs2.bs.R;
+import com.app.isb_bs2.bs.Util;
 import com.app.isb_bs2.bs.databinding.FragmentOvertimeListItemBinding;
 import com.app.isb_bs2.bs.handler.OverTimeRecyclerViewHandler;
 import com.app.isb_bs2.bs.realmdata.OverTime;
@@ -60,12 +62,6 @@ public class OverTimeListRecyclerViewAdapter extends RecyclerView.Adapter<OverTi
 
     @Override
     public OverTimeListRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Calendar today = Calendar.getInstance();
-        OverTime overTime = realmResults.get(viewType);
-        if(overTime.getCreated() == today.getTime()){
-
-        }
-
 
         final View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_overtime_list_item, parent, false);
         return new ViewHolder(v);
@@ -77,9 +73,19 @@ public class OverTimeListRecyclerViewAdapter extends RecyclerView.Adapter<OverTi
 
         OverTimeViewModel overTimeViewModel = new OverTimeViewModel(overTime);
         binding = holder.getBinding();
-        if (position == TYPE_HEADER){
-//            binding.txtHeader.setVisibility(View.VISIBLE);
-//            binding.txtDate.setText("昨日");
+
+        if (getItemViewType(position) == TYPE_HEADER){
+            binding.txtListHeader.setVisibility(View.VISIBLE);
+
+            if (DateUtils.isToday(overTime.getCreated().getTime())){
+                binding.txtListHeader.setText("今日");
+            } else if (Util.isYesterday(overTime.getCreated().getTime())){
+                binding.txtListHeader.setText("昨日");
+            } else {
+                binding.txtListHeader.setText(Util.dateToMMDD(overTime.getCreated()) + "(" + Util.getWeekday(overTime.getCreated()) + ")");
+            }
+        } else {
+            binding.txtListHeader.setVisibility(View.GONE);
         }
         binding.btnDelete.setTag(position);
 

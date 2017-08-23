@@ -31,6 +31,5 @@ public class OverTimeRecyclerViewHandler {
         realm.beginTransaction();
         resultOverTime.deleteFromRealm(position);
         realm.commitTransaction();
-        mAdapter.notifyDataSetChanged();
     }
 }

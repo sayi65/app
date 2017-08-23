@@ -81,6 +81,6 @@ public class OverTimeListFragment extends BaseFragment implements RealmChangeLis
 
     @Override
     public void onChange(Object o) {
-//        mAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
     }
 }
