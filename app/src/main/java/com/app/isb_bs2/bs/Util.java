@@ -52,4 +52,15 @@ public class Util {
         return weekList[dayOfWeek - 1];
 
     }
+
+    public static boolean isFriday(){
+        Calendar today = Calendar.getInstance();
+        int now = today.get(Calendar.DAY_OF_WEEK);
+//        if(now == Calendar.FRIDAY){
+//            return true;
+//        } else {
+//            return false;
+//        }
+        return true;
+    }
 }

@@ -45,6 +45,10 @@ public class OverTimeAddViewHandler {
         this.manager = manager;
     }
 
+    public void checkedData(View view, boolean checked){
+        Log.d("", ""+checked);
+    }
+
     public void onSaveData(View view,OverTimeViewModel overTimeViewModel){
         mRootView = view.getRootView();
         ToggleButton toggleBtn = (ToggleButton)mRootView.findViewById(R.id.btnToggle);
