@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -17,6 +18,7 @@ import com.app.isb_bs2.bs.rxbus.RxBus;
 import com.app.isb_bs2.bs.rxevent.OverTimeEvent;
 import com.app.isb_bs2.bs.viewmodel.OverTimeViewModel;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -36,6 +38,8 @@ public class OverTimeAddViewHandler {
     private OverTime overTime;
     private FragmentManager manager;
     public Disposable mDisposable;
+    private Date mDate;
+    private Calendar mCalendar;
 
     private final Integer PLACE_ID = 100;
     private final Integer COME_ID = 200;
@@ -45,19 +49,70 @@ public class OverTimeAddViewHandler {
         this.manager = manager;
     }
 
-    public void checkedData(View view, boolean checked){
-        Log.d("", ""+checked);
+    public void checkedData(View view){
     }
 
     public void onSaveData(View view,OverTimeViewModel overTimeViewModel){
         mRootView = view.getRootView();
         ToggleButton toggleBtn = (ToggleButton)mRootView.findViewById(R.id.btnToggle);
+
+        CheckBox fridayBox = (CheckBox)mRootView.findViewById(R.id.checkbox_friday);
+        CheckBox saturdayBox = (CheckBox)mRootView.findViewById(R.id.checkbox_saturday);
+        CheckBox sundayBox = (CheckBox)mRootView.findViewById(R.id.checkbox_sunday);
+
+        mDate = new Date();
+        mCalendar = Calendar.getInstance();
+        mCalendar.setTime(mDate);
+
+        // 水曜日の場合
+        if (mCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
+            if (!fridayBox.isChecked() && !saturdayBox.isChecked() && sundayBox.isChecked()) {
+                if (!toggleBtn.isChecked()) {
+                    saveToData(overTimeViewModel, mDate, false);
+                } else {
+                    saveToData(overTimeViewModel, mDate, true);
+                }
+            }
+        }
+
+        //　金曜日の場合
+        if (mCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+            if (fridayBox.isChecked()) {
+                if (!toggleBtn.isChecked()) {
+                    saveToData(overTimeViewModel, mDate, false);
+                } else {
+                    saveToData(overTimeViewModel, mDate, true);
+                }
+            }
+            if (saturdayBox.isChecked()) {
+
+                mCalendar.add(Calendar.DATE, 1);
+                if (!toggleBtn.isChecked()) {
+                    saveToData(overTimeViewModel, mCalendar.getTime(), false);
+                } else {
+                    saveToData(overTimeViewModel, mCalendar.getTime(), true);
+                }
+            }
+            if (sundayBox.isChecked()) {
+                mCalendar.add(Calendar.DATE, 1);
+                if (!toggleBtn.isChecked()) {
+                    saveToData(overTimeViewModel, mCalendar.getTime(), false);
+                } else {
+                    saveToData(overTimeViewModel, mCalendar.getTime(), true);
+                }
+            }
+        }
+
+        Fragment mFragment = new OverTimeListFragment();
+        manager.beginTransaction().replace(R.id.content, mFragment).commit();
+
+    }
+
+    private void saveToData(OverTimeViewModel overTimeViewModel, Date createdDate, boolean isChecked){
         realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        overTime = realm.createObject(OverTime.class);
-        if(!toggleBtn.isChecked()){
-            overTime.setOverTime(false);
-        } else {
+        try{
+            realm.beginTransaction();
+            overTime = realm.createObject(OverTime.class);
             overTime.setEmployeeCode(overTimeViewModel.getEmployeeCode());
             overTime.setEmployeeName(overTimeViewModel.getEmployeeName());
             overTime.setEmployeeAffiliation(overTimeViewModel.getEmployeeAffiliation());
@@ -68,13 +123,12 @@ public class OverTimeAddViewHandler {
             overTime.setOverTimePlace(overTimeViewModel.getOverTimePlace());
             overTime.setStartTime(overTimeViewModel.getStartTime());
             overTime.setEndTime(overTimeViewModel.getEndTime());
-            overTime.setOverTime(true);
+            overTime.setOverTime(isChecked);
             overTime.setCreated(new Date());
+            realm.commitTransaction();
+        } finally {
+            realm.close();
         }
-        realm.commitTransaction();
-
-        Fragment mFragment = new OverTimeListFragment();
-        manager.beginTransaction().replace(R.id.content, mFragment).commit();
 
     }
 

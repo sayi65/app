@@ -41,20 +41,18 @@
                 <CheckBox android:id="@+id/checkbox_friday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="金曜日"
-                    android:onCheckedChanged="@{(view)->overTimeHandler.checkedData(view, isChecked)}"/>
+                    android:text="金曜日"/>
+                    <!--android:onCheckedChanged="@{(view)->overTimeHandler.checkedData(view)}"/>-->
                 <CheckBox android:id="@+id/checkbox_saturday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="土曜日"
-                    android:onCheckedChanged="@{(view)->overTimeHandler.checkedData(view, isChecked)}"/>
+                    android:text="土曜日"/>
                 <CheckBox android:id="@+id/checkbox_sunday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="日曜日"
-                    android:onCheckedChanged="@{(view)->overTimeHandler.checkedData(view, isChecked)}"/>
+                    android:text="日曜日"/>
 
             </LinearLayout>
 
@@ -252,6 +250,7 @@
     </ScrollView>
 
         <Button
+            android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"

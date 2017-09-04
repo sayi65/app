@@ -12,6 +12,8 @@ import com.app.isb_bs2.bs.handler.OverTimeAddViewHandler;
 import com.app.isb_bs2.bs.realmdata.OverTime;
 import com.app.isb_bs2.bs.viewmodel.OverTimeViewModel;
 
+import java.util.Calendar;
+
 /**
  * Created by sayi65 on 2017/08/09.
  */
@@ -19,6 +21,7 @@ import com.app.isb_bs2.bs.viewmodel.OverTimeViewModel;
 public class OverTimeAddFragment extends BaseFragment {
 
     private FragmentOvertimeAddBinding binding;
+    private Calendar mCalendar;
 
     public OverTimeAddFragment(){
 
@@ -31,6 +34,14 @@ public class OverTimeAddFragment extends BaseFragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_overtime_add, container, false);
+
+        mCalendar = Calendar.getInstance();
+        if (mCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY && mCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY){
+            binding.btnSave.setEnabled(true);
+        } else {
+            binding.btnSave.setEnabled(false);
+        }
+
         binding.setViewModel(new OverTimeViewModel(new OverTime()));
         binding.setOverTimeHandler(new OverTimeAddViewHandler(getFragmentManager()));
 
