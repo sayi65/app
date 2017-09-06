@@ -56,11 +56,10 @@ public class Util {
     public static boolean isFriday(){
         Calendar today = Calendar.getInstance();
         int now = today.get(Calendar.DAY_OF_WEEK);
-//        if(now == Calendar.FRIDAY){
-//            return true;
-//        } else {
-//            return false;
-//        }
-        return true;
+        if(now == Calendar.FRIDAY){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

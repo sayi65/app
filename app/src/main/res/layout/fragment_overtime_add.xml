@@ -27,7 +27,6 @@
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-
             android:paddingTop="30dp">
 
             <LinearLayout
@@ -76,6 +75,7 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:onClick="@{overTimeHandler.displayReasonText}"
+                android:visibility="@{util.friday ? View.GONE : View.VISIBLE}"
                 android:textOff="なし"
                 android:textOn="あり"
                 app:showText="false" />
@@ -85,7 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="@{util.friday ? View.VISIBLE : View.GONE}"
+                >
 
 
                 <android.support.design.widget.TextInputLayout

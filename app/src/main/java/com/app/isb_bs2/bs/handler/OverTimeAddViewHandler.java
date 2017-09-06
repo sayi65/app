@@ -66,40 +66,33 @@ public class OverTimeAddViewHandler {
 
         // 水曜日の場合
         if (mCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
-            if (!fridayBox.isChecked() && !saturdayBox.isChecked() && sundayBox.isChecked()) {
                 if (!toggleBtn.isChecked()) {
                     saveToData(overTimeViewModel, mDate, false);
                 } else {
                     saveToData(overTimeViewModel, mDate, true);
-                }
             }
         }
 
         //　金曜日の場合
         if (mCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
             if (fridayBox.isChecked()) {
-                if (!toggleBtn.isChecked()) {
-                    saveToData(overTimeViewModel, mDate, false);
-                } else {
-                    saveToData(overTimeViewModel, mDate, true);
-                }
+                saveToData(overTimeViewModel, mDate, true);
+            } else {
+                saveToData(overTimeViewModel, mDate, false);
             }
+            mCalendar.add(Calendar.DATE, 1);
             if (saturdayBox.isChecked()) {
 
-                mCalendar.add(Calendar.DATE, 1);
-                if (!toggleBtn.isChecked()) {
-                    saveToData(overTimeViewModel, mCalendar.getTime(), false);
-                } else {
-                    saveToData(overTimeViewModel, mCalendar.getTime(), true);
-                }
+                saveToData(overTimeViewModel, mCalendar.getTime(), true);
+            } else {
+                saveToData(overTimeViewModel, mCalendar.getTime(), false);
             }
+            mCalendar.add(Calendar.DATE, 1);
             if (sundayBox.isChecked()) {
-                mCalendar.add(Calendar.DATE, 1);
-                if (!toggleBtn.isChecked()) {
-                    saveToData(overTimeViewModel, mCalendar.getTime(), false);
-                } else {
-                    saveToData(overTimeViewModel, mCalendar.getTime(), true);
-                }
+
+                saveToData(overTimeViewModel, mCalendar.getTime(), true);
+            }else {
+                saveToData(overTimeViewModel, mCalendar.getTime(), false);
             }
         }
 
@@ -124,7 +117,7 @@ public class OverTimeAddViewHandler {
             overTime.setStartTime(overTimeViewModel.getStartTime());
             overTime.setEndTime(overTimeViewModel.getEndTime());
             overTime.setOverTime(isChecked);
-            overTime.setCreated(new Date());
+            overTime.setCreated(createdDate);
             realm.commitTransaction();
         } finally {
             realm.close();

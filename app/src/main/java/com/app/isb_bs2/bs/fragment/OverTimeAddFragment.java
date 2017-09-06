@@ -36,7 +36,7 @@ public class OverTimeAddFragment extends BaseFragment {
                 inflater, R.layout.fragment_overtime_add, container, false);
 
         mCalendar = Calendar.getInstance();
-        if (mCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY && mCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY){
+        if (mCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY || mCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY){
             binding.btnSave.setEnabled(true);
         } else {
             binding.btnSave.setEnabled(false);
