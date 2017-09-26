@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -39,6 +40,12 @@ public class MainHandler {
 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
+        View imageButton;
+
+        Toolbar toolbar = (Toolbar) mActivity.findViewById(R.id.toolbar);
+        imageButton = toolbar.findViewById(R.id.add_button);
+        imageButton.setVisibility(View.GONE);
+
 
         switch (item.getItemId()) {
             case R.id.navigation_home:
@@ -47,9 +54,17 @@ public class MainHandler {
                 break;
             case R.id.navigation_dashboard:
                 fragment = new DashBoardFragment();
+                toolbar.setTitle("予定");
+                imageButton = toolbar.findViewById(R.id.add_button);
+                imageButton.setVisibility(View.VISIBLE);
+                imageButton.setBackgroundColor(this.mActivity.getResources().getColor(R.color.colorPrimary));
                 break;
             case R.id.navigation_notifications:
                 fragment = new OverTimeListFragment();
+                toolbar.setTitle("残業申請登録");
+                imageButton = toolbar.findViewById(R.id.add_button);
+                imageButton.setVisibility(View.VISIBLE);
+                imageButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 break;
         }
 

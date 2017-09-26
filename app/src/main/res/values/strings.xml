@@ -20,4 +20,13 @@
 
     <string name="is_overtime">あり</string>
     <string name="is_not_overtime">なし</string>
+
+    <string-array name="dummy_data">
+        <item>1111111111111</item>
+        <item>2222222222222</item>
+        <item>2222222222222</item>
+        <item>2222222222222</item>
+        <item>2222222222222</item>
+        <item>2222222222222</item>
+    </string-array>
 </resources>

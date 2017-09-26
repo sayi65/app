@@ -48,13 +48,6 @@ public class OverTimeListFragment extends BaseFragment implements RealmChangeLis
 
         View rootView = inflater.inflate(R.layout.fragment_overtime_list, container, false);
 
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("残業申請登録");
-
-        View imageButton = toolbar.findViewById(R.id.add_button);
-        imageButton.setVisibility(View.VISIBLE);
-        imageButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

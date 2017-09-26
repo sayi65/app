@@ -41,11 +41,7 @@ public class MainActivity extends AppCompatActivity {
         imageButton.setVisibility(View.GONE);
         //////////////
 //        realm.beginTransaction();
-//        overTime = realm.createObject(OverTime.class);
-//        overTime.setEmployeeCode("003418");
-//        overTime.setEmployeeName("sai");
-//        overTime.setOverTime(true);
-//        overTime.setReason("riyu");
+//        realm.deleteAll();
 //        realm.commitTransaction();
 
         ///////////////
