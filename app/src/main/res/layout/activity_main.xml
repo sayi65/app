@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="right"
-
             android:background="@color/colorPrimary"
             android:title="test"
             android:touchscreenBlocksFocus="false"
@@ -30,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:onClick="@{()->handler.getButton()}"
+                android:onClick="@{handler.getButton}"
                 android:src="@android:drawable/ic_menu_add" />
         </android.support.v7.widget.Toolbar>
 
