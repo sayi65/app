@@ -35,6 +35,11 @@ android {
     dataBinding {
         enabled = true
     }
+
+    realm {
+        syncEnabled = true;
+
+    }
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
 }
@@ -56,5 +61,7 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.1.2'
     compile 'com.jakewharton:butterknife:8.8.0'
 
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile files('libs/NCMB.jar')
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.0'
 }

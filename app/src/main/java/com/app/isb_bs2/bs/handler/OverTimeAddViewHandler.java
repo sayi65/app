@@ -7,9 +7,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.app.isb_bs2.bs.LoginActivity;
+import com.app.isb_bs2.bs.MainActivity;
 import com.app.isb_bs2.bs.R;
+import com.app.isb_bs2.bs.fragment.OverTimeAddFragment;
 import com.app.isb_bs2.bs.fragment.OverTimeListFragment;
 import com.app.isb_bs2.bs.fragment.dialog.DialogTimeFragment;
 import com.app.isb_bs2.bs.fragment.dialog.DialogWorkPlaceFragment;
@@ -33,6 +37,7 @@ import io.realm.Realm;
 
 public class OverTimeAddViewHandler {
 
+    private MainActivity mActivity;
     private View mRootView;
     public Realm realm;
     private OverTime overTime;
@@ -104,21 +109,34 @@ public class OverTimeAddViewHandler {
     private void saveToData(OverTimeViewModel overTimeViewModel, Date createdDate, boolean isChecked){
         realm = Realm.getDefaultInstance();
         try{
-            realm.beginTransaction();
-            overTime = realm.createObject(OverTime.class);
-            overTime.setEmployeeCode(overTimeViewModel.getEmployeeCode());
-            overTime.setEmployeeName(overTimeViewModel.getEmployeeName());
-            overTime.setEmployeeAffiliation(overTimeViewModel.getEmployeeAffiliation());
-            overTime.setProjectCode(overTimeViewModel.getProjectCode());
-            overTime.setProjectName(overTimeViewModel.getProjectName());
-            overTime.setReason(overTimeViewModel.getReason());
-            overTime.setReasonDetail(overTimeViewModel.getReasonDetail());
-            overTime.setOverTimePlace(overTimeViewModel.getOverTimePlace());
-            overTime.setStartTime(overTimeViewModel.getStartTime());
-            overTime.setEndTime(overTimeViewModel.getEndTime());
-            overTime.setOverTime(isChecked);
-            overTime.setCreated(createdDate);
-            realm.commitTransaction();
+            realm.executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm bgRealm) {
+                    overTime = realm.createObject(OverTime.class);
+                    overTime.setEmployeeCode(overTimeViewModel.getEmployeeCode());
+                    overTime.setEmployeeName(overTimeViewModel.getEmployeeName());
+                    overTime.setEmployeeAffiliation(overTimeViewModel.getEmployeeAffiliation());
+                    overTime.setProjectCode(overTimeViewModel.getProjectCode());
+                    overTime.setProjectName(overTimeViewModel.getProjectName());
+                    overTime.setReason(overTimeViewModel.getReason());
+                    overTime.setReasonDetail(overTimeViewModel.getReasonDetail());
+                    overTime.setOverTimePlace(overTimeViewModel.getOverTimePlace());
+                    overTime.setStartTime(overTimeViewModel.getStartTime());
+                    overTime.setEndTime(overTimeViewModel.getEndTime());
+                    overTime.setOverTime(isChecked);
+                    overTime.setCreated(createdDate);
+                }
+            }, new Realm.Transaction.OnSuccess() {
+                @Override
+                public void onSuccess() {
+                    Toast.makeText(mActivity, "成功", Toast.LENGTH_LONG).show();
+                }
+            }, new Realm.Transaction.OnError() {
+                @Override
+                public void onError(Throwable error) {
+                    Toast.makeText(mActivity, "失敗", Toast.LENGTH_LONG).show();
+                }
+            });
         } finally {
             realm.close();
         }

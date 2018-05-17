@@ -13,6 +13,8 @@ import com.app.isb_bs2.bs.handler.MainHandler;
 import com.app.isb_bs2.bs.realmdata.OverTime;
 
 import io.realm.Realm;
+import io.realm.SyncConfiguration;
+import io.realm.SyncUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        realm = Realm.getDefaultInstance();
 
+
+        realm = Realm.getDefaultInstance();
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
@@ -39,12 +42,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         View imageButton = toolbar.findViewById(R.id.add_button);
         imageButton.setVisibility(View.GONE);
-        //////////////
-//        realm.beginTransaction();
-//        realm.deleteAll();
-//        realm.commitTransaction();
-
-        ///////////////
 
         binding.setHandler(new MainHandler(this));
 

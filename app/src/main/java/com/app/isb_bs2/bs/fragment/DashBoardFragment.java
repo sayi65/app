@@ -30,7 +30,6 @@ public class DashBoardFragment extends BaseFragment {
     private Schedule schedule;
 
     public DashBoardFragment() {
-        // Required empty public constructor
     }
 
     @Override
