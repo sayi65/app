@@ -44,10 +44,10 @@ public class LoginHandler implements SyncUser.Callback {
         EditText inputPasswd = (EditText)mRootView.findViewById(R.id.input_password);
 
         if(inputEmail.getText() != null && inputPasswd.getText() != null){
-            inputEmail.setText("sayi65@live.cn");
-            inputPasswd.setText("cuilin1");
+            inputEmail.setText("xxxx@xxxx.com");
+            inputPasswd.setText("xxxxx");
 
-            SyncCredentials credentials = SyncCredentials.usernamePassword("sayi65@live.cn", "cuilin1", false);
+            SyncCredentials credentials = SyncCredentials.usernamePassword("xxxx@xxxx.com", "xxxxx", false);
             SyncUser.loginAsync(credentials, MainApplication.AUTH_URL, this );
 
         }
